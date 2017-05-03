@@ -1,8 +1,7 @@
 ---
 - hosts: all
   sudo: yes
-  user: vagrant
   
   tasks: 
     - name: Install Java
-    apt: name=default-jdk state=latest update-cache=yes
+      apt: name=default-jdk state=latest update-cache=yes
