@@ -6,13 +6,25 @@
   tasks:
     - name: Install Java
       apt: name=default-jdk state=latest update-cache=yes
+      
+    - name: Create directory for downloads
+      file:
+        path: /vagrant/downloads/
+        state: directory
+        mode: 0755
 
     - name: Download Glassfish
       get_url: 
-        url: download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip
+        url: http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip
         dest: /vagrant/downloads/glassfish-4.1.2.zip
+        
+    - name: Create directory for Glassfish
+      file:
+        path: /vagrant/glassfish/
+        state: directory
+        mode: 0755
       
     - name: Unzip Glassfish
       unarchive: 
-        src: vagrant/downloads/glassfish-4.1.2.zip
+        src: /vagrant/downloads/glassfish-4.1.2.zip
         dest: /vagrant/glassfish/
