@@ -4,12 +4,15 @@
   become: true
 
   tasks:
-    - name: Install Java
-      apt: 
-        name: default-jdk
+    - name: Install Java and unzip
+      apt:
+        name: "{{ item }}"
         state: latest
         update-cache: yes
-      
+      with_items:
+        - default-jdk
+        - unzip
+
     - name: Create necessary directories
       file:
         path: "{{ item }}"
@@ -20,11 +23,11 @@
         - /vagrant/glassfish/
 
     - name: Download Glassfish
-      get_url: 
+      get_url:
         url: http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip
         dest: /vagrant/downloads/glassfish-4.1.2.zip
-      
+
     - name: Unzip Glassfish
-      unarchive: 
+      unarchive:
         src: /vagrant/downloads/glassfish-4.1.2.zip
         dest: /vagrant/glassfish/
