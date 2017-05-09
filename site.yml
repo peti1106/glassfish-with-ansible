@@ -1,33 +1,6 @@
 ---
-
-- hosts: all
+- name: Install and configure Glassfish server
+  hosts: all
   become: true
-
-  tasks:
-    - name: Install Java and unzip
-      apt:
-        name: "{{ item }}"
-        state: latest
-        update-cache: yes
-      with_items:
-        - default-jdk
-        - unzip
-
-    - name: Create necessary directories
-      file:
-        path: "{{ item }}"
-        state: directory
-        mode: 0755
-      with_items:
-        - /vagrant/downloads/
-        - /vagrant/glassfish/
-
-    - name: Download Glassfish
-      get_url:
-        url: http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip
-        dest: /vagrant/downloads/glassfish-4.1.2.zip
-
-    - name: Unzip Glassfish
-      unarchive:
-        src: /vagrant/downloads/glassfish-4.1.2.zip
-        dest: /vagrant/glassfish/
+  roles:
+    - common

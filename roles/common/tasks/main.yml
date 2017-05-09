@@ -1,0 +1,37 @@
+---
+  - name: Install Java and unzip
+    apt:
+      name: "{{ item }}"
+      state: latest
+      update-cache: yes
+    with_items:
+      - default-jdk
+      - unzip
+
+  - name: Create necessary directories
+    file:
+      path: /vagrant/downloads/
+      state: directory
+      mode: 0755
+
+  - name: Download Glassfish
+    get_url:
+      url: http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip
+      dest: /vagrant/downloads/glassfish-4.1.2.zip
+
+  - name: Unzip Glassfish
+    unarchive:
+      src: /vagrant/downloads/glassfish-4.1.2.zip
+      dest: /vagrant/
+
+  - name: Copy index.html
+    copy:
+      src: index.html
+      dest: /vagrant/glassfish4/glassfish/domains/domain1/docroot/
+
+  - name: Template operation
+    template:
+      src: index.j2
+      dest: /vagrant/glassfish4/glassfish/domains/domain1/docroot/index.html
+    notify:
+      - Start Glassfish
