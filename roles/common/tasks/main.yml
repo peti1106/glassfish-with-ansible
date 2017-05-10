@@ -5,7 +5,7 @@
       state: latest
       update-cache: yes
     with_items:
-      - default-jdk
+      - openjdk-7-jdk
       - unzip
 
   - name: Create necessary directories
