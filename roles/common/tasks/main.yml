@@ -28,6 +28,11 @@
     copy:
       src: index.html
       dest: /vagrant/glassfish4/glassfish/domains/domain1/docroot/
+      
+  - name: Copy start_glassfish.sh
+    copy:
+      src: start_glassfish.sh
+      dest: /etc/init.d/
 
   - name: Template operation
     template:
